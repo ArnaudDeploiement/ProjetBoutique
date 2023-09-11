@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Categorie</title>
+    <link rel="stylesheet" href="/css/backcategorie.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main" th:fragment="main">
+
+    <h2> Liste des catégories</h2>
+    <div class="categorie" th:each="category : ${getCategory}">
+        <div type="hidden" th:field="${category.id}"></div>
+        <div class="categorieTitre"th:text="${category.name}"></div>
+        <a th:href="@{/category/{categoryId}(categoryId=${category.id})}"><button>Modifier</button></a>
+        <form th:action="@{/category/delete/{deleteId}(deleteId=${category.id})}" method="post">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <button type="submit">Supprimer</button>
+        </form>
+    </div>
+
+
+    <h2> Ajouter une catégorie </h2>
+    <form class="formCategory"th:action="@{saveCategory}" th:object="${newCategory}" method="post">
+        <input class="fieldCategory" placeholder="nom" type="text" id="nom" name="nom" th:field="*{name}" required>
+        <button type="submit">Ajouter une catégorie</button>
+    </form>
+</div>
+</body>
+</html>
+
+
+

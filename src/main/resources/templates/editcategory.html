@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/backcategorie.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="main">
+    <form class="formCategory" th:object="${updateCategory}" th:action="@{/editCategory}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <label>Nom de la catégorie:</label>
+        <input class="fieldCategory" type="text" th:field="*{name}" required/>
+        <button type="submit">Enregistrer</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Produits</title>
+    <link rel="stylesheet" href="/css/backcategorie.css">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main" th:fragment="main">
+
+    <h2> Liste des produits</h2>
+    <div class="categorie" th:each="produit : ${getProduit}" style="display:flex; gap: 10vw; justify-content:center; align-items:center;">
+        <div type="hidden" th:field="${produit.id}"></div>
+        <div class="categorieTitre" th:text="${produit.name}"></div>
+        <div th:text="${produit.price} + ' €'"></div>
+        <img class="imageProduit" th:src="${produit.photo}"/>
+        <div th:text="${produit.category.name}"></div>
+        <a th:href="@{/produit/{produitId}(produitId=${produit.id})}"><button >Modifier</button></a>
+        <form th:action="@{/produit/delete/{deleteId}(deleteId=${produit.id})}" method="post">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <button type="submit">Supprimer</button>
+        </form>
+    </div>
+
+    <h2> Ajouter un produit </h2>
+    <form class="formCategory"
+          style="display:flex; flex-direction: column; margin-top: 5vh; gap: 1vh; justify-content:center; align-items:center;"
+          th:action="@{saveProduit}" th:object="${newProduit}" method="post">
+
+        <input class="fieldCategory" placeholder="nom" type="text" id="name" name="name" th:field="*{name}" required>
+
+        <input class="fieldCategory" placeholder="prix" type="text" id="price" name="price" th:field="*{price}"
+               required>
+
+        <input class="fieldCategory" placeholder="pictures/[nomimage.ext]" type="text" id="photo" name="photo" th:field="*{photo}"
+               required>
+
+        <select th:field="*{category}" id="category" required>
+            <option value="">Sélectionnez une catégorie</option>
+            <option th:each="cat : ${getCategory}" th:value="${cat.id}" th:text="${cat.name}"></option>
+        </select>
+
+        <button type="submit">Ajouter une produit</button>
+    </form>
+</div>
+</body>
+</html>

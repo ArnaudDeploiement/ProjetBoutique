@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/backcategorie.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="main">
+    <form class="formCategory" th:object="${updateProduit}" th:action="@{/editProduit}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <input class="fieldCategory" placeholder="name" type="text" th:field="*{name}" required/>
+        <input class="fieldCategory" placeholder="price" type="text" th:field="*{price}" required/>
+        <input class="fieldCategory" placeholder="photo" type="text" th:field="*{photo}" required/>
+        <select class="fieldCategory" th:field="*{category}" id="category" required>
+            <option value="">Sélectionnez une catégorie</option>
+            <option th:each="cat : ${getCategory}" th:value="${cat.id}" th:text="${cat.name}"></option>
+        </select>
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>

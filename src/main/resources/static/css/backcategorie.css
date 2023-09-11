@@ -26,7 +26,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    min-height: 70vh;
     text-align: center;
     gap: 2vh;
     margin: 0;
